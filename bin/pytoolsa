@@ -1,2 +1,19 @@
-#!/bin/sh
-python3 -m python_tool_sample "$@"
+#!/bin/bash
+
+commands=(py python3 python)
+
+pythonbin=""
+for cmd in ${commands[@]}
+do
+    if [ -z $pythonbin ]; then
+        pythonbin=`which $cmd`
+    fi
+    
+done
+
+if [ -z $pythonbin ]; then
+    echo "Python is not found"
+    exit 1
+else
+    "$pythonbin" -m python_tool_sample "$@"
+fi
